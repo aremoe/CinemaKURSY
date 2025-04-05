@@ -1,0 +1,93 @@
+﻿@model List<Film>
+
+<h1>Фільми</h1>
+
+<p>
+    <a asp-action="Створити" class="btn btn-primary">Create New Film</a>
+</p>
+
+<table class="table table-striped table-hover">
+    <thead class="table-dark">
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col"></th>
+
+            <th scope="col">Назва</th>
+            <th scope="col">Жанр</th>
+            <th scope="col">Скільки триває</th>
+            <th scope="col"></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var i in Model)
+        {
+            <tr class="align-middle">
+                <th scope="row" style="width: 1%">@i.Id</th>
+                <td class="text-center" style="width: 1%">
+                    <img height="40" src="@i?.Cover" alt="@i.Name" />
+                </td>
+                <td>@i.Name</td>
+                <td>@i.Genre</td>
+                <td>@i.Duration</td>
+
+
+                <td>
+                    <div class="btn-group" role="group">
+                       
+                        <a asp-action="Details" asp-route-id="@i.Id" class="btn btn-outline-secondary">Деталі</a>
+                        <a asp-action="Edit" asp-route-id="@i.Id" class="btn btn-outline-secondary">Змінити</a>
+                        <a class="btn btn-outline-danger"
+                       data-bs-toggle="modal"
+                       data-bs-target="#deleteModal"
+                       data-bs-id="@i.Id"
+                       data-bs-surname="@i.Name">Видалити
+                        </a>
+                    </div>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+<!-- Vertically centered modal -->
+<div class="modal" id="deleteModal" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Видалити фільм</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Закрити"></button>
+            </div>
+            <div class="modal-body">
+                <p>Ви впевнені що ви хочете видалити?<span class="surname"></span>?</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Ні</button>
+                <a asp-action="Delete" class="btn btn-danger" id="deleteBtn">Так</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts
+    {
+    <script>
+        var modal = document.getElementById('deleteModal')
+        var deleteBtn = document.getElementById('deleteBtn')
+
+        modal.addEventListener('show.bs.modal', function (event) {
+            // Button that triggered the modal
+            var button = event.relatedTarget
+            // Extract info from data-bs-* attributes
+            var surname = button.getAttribute('data-bs-surname')
+
+            // Update the modal's content.
+            var textSurname = modal.querySelector('.modal-body .surname')
+            textSurname.textContent = surname
+
+            // --- id
+            var id = button.getAttribute('data-bs-id')
+            var deleteBtn = modal.querySelector('.modal #deleteBtn')
+            deleteBtn.setAttribute('href', "/films/delete/" + id)
+        })
+
+    </script>
+}

@@ -1,0 +1,49 @@
+﻿@model Film
+
+<h1>Додати новий фільм</h1>
+
+<form class="row g-3" asp-action="Create" method="post">
+    <div class="col-md-6">
+        <label class="form-label">Name</label>
+        <input asp-for="Name" type="text" class="form-control" placeholder="Введіть назву">
+        <span asp-validation-for="Name" class="form-text text-danger"></span>
+    </div>
+    <div class="col-md-6">
+        <input asp-for="Genre" type="text" class="form-control" placeholder="Введіть жанр">
+        <span asp-validation-for="Genre" class="form-text text-danger"></span>
+    </div>
+    <div class="col-md-3">
+        <label class="form-label">Year</label>
+        <input asp-for="Year" type="number" class="form-control" placeholder="Введіть рік">
+        <span asp-validation-for="Year" class="form-text text-danger"></span>
+    </div>
+    
+    <div class="col-md-3">
+        <label class="form-label">Duration</label>
+        <input asp-for="Duration" type="number" class="form-control" placeholder="Введіть тривалість">
+        <span asp-validation-for="Duration" class="form-text text-danger"></span>
+    </div>
+    <div class="col-md-12">
+        <label class="form-label">Cover</label>
+        <input asp-for="Cover" type="url" class="form-control" placeholder="Введіть URl посилання на зображення обкладинки">
+        <span asp-validation-for="Cover" class="form-text text-danger"></span>
+    </div>
+
+   @* <div class="col-md-6">
+        <button type="submit" class="btn btn-primary w-100">Create</button>
+    </div>
+    <div class="col-md-6">
+        <a asp-action="Index" class="btn btn-dark w-100">Back</a>
+    </div>*@
+    <div class="col-md-6">
+        <button type="submit" class="btn btn-primary w-100">Створити</button>
+    </div>
+    <div class="col-md-6">
+        <a asp-action="Index" class="btn btn-dark w-100">Назад</a>
+    </div>
+</form>
+@section Scripts
+    {
+       <partial name="_ValidationScriptsPartial"/>
+}
+

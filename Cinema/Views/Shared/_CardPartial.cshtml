@@ -1,0 +1,17 @@
+﻿@model Film
+
+<div class="card" style="width: 10rem;">
+    <img src="@Model.Cover" height="200" class="card-img-top" alt="Movie Cover">
+    <div class="card-body">
+
+        <h5 class="card-title">@Model.Name</h5>
+        <p class="card-text">
+            <div>Genre: @Model.Genre</div>
+            <div>Duration: @Model.Duration</div>
+        </p>
+        <a asp-controller="Favourites" asp-action="Add"
+           asp-route-id="@Model.Id"
+           asp-route-returnUrl="@Context.Request.Path"
+           class="btn btn-success">+</a>
+    </div>
+</div>

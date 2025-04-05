@@ -1,0 +1,29 @@
+﻿@model List<Film>
+
+<div class="card text-center">
+    <div class="card-header">
+        Улюблені
+    </div>
+    <div class="card-body">
+        <h5 class="card-title">Films List</h5>
+
+        <ul class="list-group">
+            @foreach (var i in Model)
+            {
+               <li class="list-group-item d-flex justify-content-between align-items-center">
+                    <img height="50" src="@i.Cover" >
+               
+                    Film: @i.Name - @i.Genre - @i.Duration - @i.Year
+                    <a class="btn btn-outline-danger btn-sm"
+                       asp-route-returnUrl="@Context.Request.Path"
+                    asp-action="Remove" asp-route-id="@i.Id">-</a>
+                </li>
+            }
+        </ul>
+
+        <a asp-controller="Home" asp-action="Index" class="btn btn-success mt-3">Go to Home</a>
+    </div>
+    <div class="card-footer text-muted">
+        Count: @Model.Count
+    </div>
+</div>
