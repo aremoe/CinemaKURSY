@@ -4,19 +4,22 @@ using Cinema.Data;
 using System.Numerics;
 using Cinema.Entities;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.AspNetCore.Identity.UI.Services;
+using Microsoft.AspNetCore.Identity;
 
 namespace Cinema.Controllers
 {
     public class FilmsController : Controller
     {
         private readonly CinemaDbContext context;
+        private readonly IEmailSender _emailSender;
 
-        public FilmsController()
+        public FilmsController(CinemaDbContext context, IEmailSender emailSender)
         {
-            context = new CinemaDbContext();
+            this.context = context;
+            _emailSender = emailSender;
         }
 
-        // GET: 
         public ActionResult Index()
         {
             var films = context.FilmTeams4
@@ -66,6 +69,20 @@ namespace Cinema.Controllers
             context.SaveChanges();
 
             return RedirectToAction("Index");
+        }
+
+        public async Task<IActionResult> Delete(int? id)
+        {
+            if (id == null) return NotFound();
+
+            var film = await context.FilmTeams4.FindAsync(id);
+
+            if (film == null) return NotFound();
+
+            await _emailSender.SendEmailAsync("danis_zs71@student.itstep.org", "Видалення команди",
+                "<h1>Команда на видаленні</h1><p>" + film.Name + "</p>");
+
+            return View(film);
         }
 
         public async Task<IActionResult> Details(int? id, string? returnUrl = null)

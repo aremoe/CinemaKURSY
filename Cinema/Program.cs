@@ -2,6 +2,7 @@ using Cinema;
 using Cinema.Data;
 using Cinema.Entities;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -10,20 +11,13 @@ string connStr = builder.Configuration.GetConnectionString("SomeeDb");
 
 builder.Services.AddControllersWithViews();
 
-//builder.Services.AddIdentity<User, IdentityRole>(options =>
-//        options.SignIn.RequireConfirmedAccount = false)
-//    .AddDefaultTokenProviders()
-//    //.AddDefaultUI()
-//    .AddEntityFrameworkStores<CinemaDbContext>();
-
-
 
 builder.Services.AddDbContext<CinemaDbContext>(opts =>
     opts.UseSqlServer(connStr));
 
 builder.Services.AddDefaultIdentity<User>(options => options.SignIn.RequireConfirmedAccount = true).AddEntityFrameworkStores<CinemaDbContext>();
 
-
+builder.Services.AddScoped<IEmailSender, EmailService>();
 
 builder.Services.AddScoped<FavouritesService>();
 builder.Services.AddHttpContextAccessor();
