@@ -1,0 +1,20 @@
+﻿@model IEnumerable<Cinema.Entities.Movie>
+
+@{
+    ViewData["Title"] = "Movies";
+}
+
+<h1 class="text-center my-4">Movies</h1>
+
+<p class="text-center">
+    <a class="btn btn-primary" asp-action="Create">Create New Movie</a>
+</p>
+
+<div class="row">
+    @foreach (var movie in Model)
+    {
+        <div class="col-md-3 d-flex justify-content-center">
+            @await Html.PartialAsync("_MovieCard", movie)
+        </div>
+    }
+</div>

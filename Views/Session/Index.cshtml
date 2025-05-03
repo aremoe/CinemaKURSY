@@ -1,0 +1,20 @@
+﻿@model IEnumerable<Cinema.Entities.Session>
+
+@{
+    ViewData["Title"] = "Sessions";
+}
+
+<h1>Sessions</h1>
+
+<p>
+    <a class="btn btn-primary" asp-action="Create">Create New Session</a>
+</p>
+
+<div class="row">
+    @foreach (var session in Model)
+    {
+        <div class="col-md-4">
+            @await Html.PartialAsync("_SessionCard", session)
+        </div>
+    }
+</div>

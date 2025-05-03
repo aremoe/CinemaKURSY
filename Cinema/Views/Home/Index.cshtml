@@ -3,13 +3,16 @@
 }
 
 <div class="text-center">
-    <h1 class="display-4">Доступні фільми</h1>
+    <h1 class="display-4">Available Movies</h1>
+    <p>Explore our collection of movies currently showing in the cinema.</p>
 </div>
-    <div class="row row-cols-1 row-cols-md-3 row-cols-lg-4 g-4">
-        @foreach (var i in Model)
-        {
-            <div class="col">
-                <partial name="_CardPartial" model="@i" />
-            </div>
-        }
+
+<form class="d-flex flex-column" method="get">
+    <div class="input-group mb-3">
+        <input type="text" class="form-control" name="name" placeholder="Film name">
     </div>
+    <div class="input-group mb-3">
+        <input type="text" class="form-control" name="genre" placeholder="Genre">
+    </div>
+    <button type="submit" class="btn btn-outline-success mb-3">Search</button>
+</form>

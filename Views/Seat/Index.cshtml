@@ -1,0 +1,30 @@
+﻿@model IEnumerable<Cinema.Entities.Seat>
+@{
+    ViewBag.Title = "Available Seats";
+    var sessionId = (int)ViewBag.SessionId;
+    var availableCount = (int)ViewBag.AvailableCount;
+}
+
+<h2>Available Seats for Session @sessionId</h2>
+<p>Seats left: <strong>@availableCount</strong></p>
+
+<table class="table table-bordered">
+    <thead>
+        <tr><th>Seat Number</th><th>Action</th></tr>
+    </thead>
+    <tbody>
+        @foreach (var seat in Model)
+        {
+            <tr>
+                <td>@seat.SeatNumber</td>
+                <td>
+                    <form method="post" asp-action="Reserve" asp-controller="Seats">
+                        <input type="hidden" name="sessionId" value="@seat.SessionId" />
+                        <input type="hidden" name="seatNumber" value="@seat.SeatNumber" />
+                        <button type="submit" class="btn btn-success btn-sm">Reserve</button>
+                    </form>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
